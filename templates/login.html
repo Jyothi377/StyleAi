@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>StyleAI - Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;background:#cdc4f0;min-height:100vh;display:flex;flex-direction:column;}
+.navbar{background:#b8ade8;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:20px;font-weight:800;color:#2d2060;letter-spacing:1px;text-decoration:none;}
+.logo span{color:#7c6fcd;}
+.nav-tag{font-size:11px;background:#7c6fcd;color:white;padding:4px 12px;border-radius:20px;}
+.page{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 20px;position:relative;overflow:hidden;}
+.s1{position:absolute;top:-60px;right:-60px;width:220px;height:220px;border:36px solid #b0a3e0;border-radius:50%;}
+.s2{position:absolute;bottom:-60px;left:-40px;width:180px;height:180px;border:28px solid #beb2e8;border-radius:50%;}
+.s3{position:absolute;top:80px;left:40px;width:28px;height:28px;background:#b0a3e0;border-radius:6px;transform:rotate(20deg);}
+.s4{position:absolute;bottom:100px;right:80px;width:18px;height:18px;background:#b8a8ee;border-radius:50%;}
+.s5{position:absolute;top:40%;right:40px;width:10px;height:10px;background:#a898e0;border-radius:50%;}
+.card{background:rgba(255,255,255,0.75);border:1px solid #b8a8ee;border-radius:20px;padding:32px 28px;width:100%;max-width:420px;position:relative;z-index:1;}
+.card-title{font-size:22px;font-weight:800;color:#2d2060;text-align:center;margin-bottom:4px;}
+.card-title span{color:#7c6fcd;}
+.card-sub{font-size:12px;color:#5a4da0;text-align:center;margin-bottom:24px;}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,0.65);border-radius:10px;padding:4px;margin-bottom:24px;}
+.tab{padding:10px;text-align:center;font-size:13px;font-weight:700;color:#5a4da0;border-radius:8px;text-decoration:none;}
+.tab.active{background:#7c6fcd;color:white;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:10px;color:#5a4da0;margin-bottom:5px;letter-spacing:0.5px;font-weight:700;}
+.field input{width:100%;background:rgba(255,255,255,0.88);border:1px solid #b8a8ee;border-radius:8px;padding:11px 14px;color:#2d2060;font-size:13px;outline:none;}
+.field input:focus{border-color:#7c6fcd;}
+.field input::placeholder{color:#a090d0;}
+.btn{width:100%;padding:13px;background:#7c6fcd;color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;}
+.btn:hover{background:#6b5ec7;}
+.flash{padding:10px 14px;border-radius:8px;font-size:12px;margin-bottom:16px;background:rgba(220,38,38,0.15);color:#fca5a5;border:1px solid rgba(220,38,38,0.3);}
+</style>
+</head>
+<body>
+<div class="navbar">
+  <a href="/" class="logo">Style<span>AI</span></a>
+  <div class="nav-tag">✦ AI Powered</div>
+</div>
+<div class="page">
+  <div class="s1"></div><div class="s2"></div><div class="s3"></div><div class="s4"></div><div class="s5"></div>
+  <div class="card">
+    <div class="card-title">Welcome to <span>StyleAI</span></div>
+    <div class="card-sub">Sign in to save your style history</div>
+    <div class="tabs">
+      <a href="/login" class="tab active">Login</a>
+      <a href="/register" class="tab">Register</a>
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for cat, msg in messages %}<div class="flash">{{ msg }}</div>{% endfor %}
+    {% endwith %}
+    <form method="POST">
+      <div class="field"><label>EMAIL OR USERNAME</label><input type="text" name="identifier" placeholder="you@example.com or tom" required></div>
+      <div class="field"><label>PASSWORD</label><input type="password" name="password" placeholder="••••••••" required></div>
+      <button class="btn" type="submit">Sign In</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

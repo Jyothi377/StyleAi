@@ -1,0 +1,10 @@
+
+flask
+flask-sqlalchemy
+flask-login
+werkzeug
+pillow
+numpy
+groq
+requests
+ddgs>=9.0

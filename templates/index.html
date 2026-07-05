@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>StyleAI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;background:#cdc4f0;min-height:100vh;}
+.navbar{background:#b8ade8;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:20px;font-weight:800;color:#2d2060;letter-spacing:1px;}
+.logo span{color:#7c6fcd;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-user{font-size:12px;color:#5a4da0;}
+.nav-history{font-size:12px;background:rgba(124,111,205,0.25);color:#3a2d6e;border:1px solid #7c6fcd;padding:5px 12px;border-radius:20px;text-decoration:none;}
+.nav-logout{font-size:12px;background:rgba(220,38,38,0.2);color:#fca5a5;border:1px solid rgba(220,38,38,0.3);padding:5px 12px;border-radius:20px;text-decoration:none;}
+.hero{padding:36px 24px 40px;position:relative;overflow:hidden;}
+.s1{position:absolute;top:-40px;right:-40px;width:180px;height:180px;border:30px solid #b0a3e0;border-radius:50%;}
+.s2{position:absolute;bottom:-50px;left:-30px;width:150px;height:150px;border:24px solid #beb2e8;border-radius:50%;}
+.s3{position:absolute;top:50px;left:30px;width:32px;height:32px;background:#b0a3e0;border-radius:7px;transform:rotate(20deg);}
+.s4{position:absolute;bottom:40px;right:80px;width:20px;height:20px;background:#b8a8ee;border-radius:50%;}
+.s5{position:absolute;top:90px;right:50px;width:12px;height:12px;background:#a898e0;border-radius:50%;}
+.s6{position:absolute;top:160px;left:60px;width:8px;height:8px;background:#b8a8ee;border-radius:50%;}
+.hc{position:relative;max-width:500px;margin:auto;text-align:center;}
+.htag{display:inline-flex;align-items:center;gap:6px;background:rgba(124,111,205,0.25);border:1px solid #7c6fcd;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;color:#7c6fcd;margin-bottom:16px;}
+.h1{font-size:26px;font-weight:800;color:#1e1650;line-height:1.3;margin-bottom:8px;}
+.h1 span{color:#7c6fcd;}
+.hp{font-size:13px;color:#5a4da0;margin-bottom:28px;line-height:1.6;}
+.form-card{background:rgba(255,255,255,0.75);border:1px solid #b8a8ee;border-radius:16px;padding:24px;}
+.upload-area{background:rgba(255,255,255,0.70);border:2px dashed #7c6fcd;border-radius:12px;padding:28px 20px;margin-bottom:18px;cursor:pointer;text-align:center;transition:border-color 0.2s;}
+.upload-area:hover{border-color:#9b8ee0;}
+.uico{width:48px;height:48px;background:#7c6fcd;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
+.ut{font-size:14px;color:#2d2060;font-weight:700;margin-bottom:3px;}
+.us{font-size:11px;color:#5a4da0;}
+.preview-img{width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-top:10px;display:none;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
+.field label{display:block;font-size:10px;color:#5a4da0;margin-bottom:6px;font-weight:700;letter-spacing:0.5px;}
+.field select{width:100%;background:rgba(255,255,255,0.88);border:1px solid #b8a8ee;border-radius:8px;padding:11px 12px;color:#2d2060;font-size:13px;outline:none;appearance:none;}
+.field select:focus{border-color:#7c6fcd;}
+.field select option{background:#cdc4f0;color:#2d2060;}
+.abtn{width:100%;padding:14px;background:#7c6fcd;color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.5px;}
+.abtn:hover{background:#6b5ec7;}
+</style>
+</head>
+<body>
+<div class="navbar">
+  <div class="logo">Style<span>AI</span></div>
+  <div class="nav-right">
+    <span class="nav-user">Hi, {{ current_user.username }}</span>
+    <a href="/history" class="nav-history">History</a>
+    <a href="/wardrobe" class="nav-history" style="background:rgba(155,142,224,0.25);">👗 Wardrobe</a>
+    <a href="/logout" class="nav-logout">Logout</a>
+  </div>
+</div>
+<div class="hero">
+  <div class="s1"></div><div class="s2"></div><div class="s3"></div>
+  <div class="s4"></div><div class="s5"></div><div class="s6"></div>
+  <div class="hc">
+    <div class="htag">✦ AI Powered Fashion</div>
+    <div class="h1">Your Personal <span>Style</span> Advisor</div>
+    <div class="hp">Upload your photo and get AI-powered outfit recommendations tailored to your skin tone and occasion</div>
+    <div class="form-card">
+      <form action="/analyze" method="POST" enctype="multipart/form-data">
+        <div class="upload-area" onclick="document.getElementById('photo').click()">
+          <div class="uico">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div class="ut">Tap to upload your photo</div>
+          <div class="us">JPG, PNG supported · Your photo stays private</div>
+          <img id="preview" class="preview-img" alt="Preview">
+        </div>
+        <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" style="display:none" required onchange="previewPhoto(this)">
+        <div class="form-row">
+          <div class="field"><label>GENDER</label>
+            <select name="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="field"><label>OCCASION</label>
+            <select name="occasion">
+              <option value="Casual">Casual</option>
+              <option value="Business">Business</option>
+              <option value="Party">Party</option>
+              <option value="Formal">Formal</option>
+            </select>
+          </div>
+        </div>
+        <button class="abtn" type="submit">✨ Analyze My Style</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+function previewPhoto(input){
+  if(input.files && input.files[0]){
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = document.getElementById('preview');
+      img.src = e.target.result;
+      img.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+</body>
+</html>
