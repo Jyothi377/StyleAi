@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import or_
 from PIL import Image
 import numpy as np
 from groq import Groq
@@ -88,6 +89,21 @@ class WardrobeItem(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return db.session.get(User, int(user_id))
+
+
+@app.context_processor
+def inject_image_url():
+    def image_url(path):
+        if not path:
+            return url_for("static", filename="")
+        normalized = str(path).replace("\\", "/").lstrip("/")
+        if normalized.startswith("static/"):
+            normalized = normalized[len("static/"):]
+        else:
+            normalized = os.path.basename(normalized)
+        return url_for("static", filename=normalized)
+
+    return {"image_url": image_url}
 
 # ─── Skin Tone Engine ─────────────────────────────────────
 #
@@ -694,13 +710,15 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for("home"))
     if request.method == "POST":
-        email    = request.form.get("email", "").strip()
+        identifier = request.form.get("identifier", "").strip()
         password = request.form.get("password", "")
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter(
+            or_(User.email == identifier, User.username == identifier)
+        ).first()
         if user and check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for("home"))
-        flash("Invalid email or password", "error")
+        flash("Invalid email/username or password", "error")
     return render_template("login.html")
 
 
