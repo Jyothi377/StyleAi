@@ -1,6 +1,6 @@
 # StyleAI
 
-StyleAI is a Flask-based fashion and style recommendation app. It supports user login, wardrobe management, image-based skin tone analysis, and outfit suggestions.
+StyleAI is a Flask-based fashion and style recommendation app. It includes user login, wardrobe management, image-based skin tone analysis, and outfit suggestions.
 
 ## Tech Stack
 
@@ -10,38 +10,66 @@ StyleAI is a Flask-based fashion and style recommendation app. It supports user 
 - Flask-SQLAlchemy
 - Pillow
 - NumPy
+- Groq
 - Requests
+- DDGS
 
 ## Project Structure
 
 - `app.py` - main Flask application
 - `templates/` - HTML templates
-- `static/` - static assets and uploaded files
+- `static/` - static assets and uploaded images
 - `instance/` - local SQLite database storage
 - `requirements.txt` - Python dependencies
+- `.env.example` - example environment variables
+- `.gitignore` - files and folders excluded from Git
 
 ## Local Setup
 
-1. Create and activate a virtual environment:
+1. Create a virtual environment:
 
 ```powershell
 python -m venv .venv
+```
+
+2. Activate the virtual environment:
+
+```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-2. Install dependencies:
+If PowerShell blocks activation, run this first:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+```
+
+3. Install dependencies:
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-3. Run the app:
+4. Add your API keys.
+
+You can use environment variables, or create a local `local_secrets.py` file. Do not upload `local_secrets.py` to GitHub.
+
+Example:
+
+```python
+FLASK_SECRET_KEY = "your-secret-key"
+GROQ_API_KEY = "your-groq-api-key"
+GEMINI_API_KEY = "your-gemini-api-key"
+REPLICATE_API_TOKEN = "your-replicate-token"
+```
+
+5. Run the app:
 
 ```powershell
 python app.py
 ```
 
-4. Open the local address shown in the terminal, usually:
+6. Open the app in your browser:
 
 ```text
 http://127.0.0.1:5000
@@ -49,52 +77,40 @@ http://127.0.0.1:5000
 
 ## Before Uploading to GitHub
 
-Follow these steps before pushing the project to GitHub:
+Make sure these files are not committed:
 
-1. Remove secret keys from source files and move them to environment variables.
-2. Update `app.py` so API keys are read from the environment instead of being hardcoded.
-3. Make sure `.venv/`, `__pycache__/`, and local database files are not committed.
-4. Do not upload `instance/styleai.db` unless you intentionally want to share sample data.
-5. Check that sensitive files are listed in `.gitignore`.
-6. Run the app once more to confirm it starts correctly after your changes.
-7. Review the repository for any accidental secrets before committing.
+- `.venv/`
+- `__pycache__/`
+- `local_secrets.py`
+- `.env`
+- `instance/styleai.db`
+
+These are already listed in `.gitignore`. The `.env.example` file is safe to upload because it contains placeholder values only.
 
 ## GitHub Upload Steps
 
-1. Initialize git if needed:
+Run these commands from the `StyleAI` folder:
 
 ```powershell
+cd C:\Users\Pc\OneDrive\Desktop\Projects\StyleAI
 git init
-```
-
-2. Check the status:
-
-```powershell
 git status
-```
-
-3. Add files:
-
-```powershell
 git add .
-```
-
-4. Commit your changes:
-
-```powershell
 git commit -m "Initial commit"
 ```
 
-5. Create a new repository on GitHub.
-6. Add the remote repository URL.
-7. Push the code:
+Create a new empty repository on GitHub, then connect it:
 
 ```powershell
+git remote add origin https://github.com/YOUR_USERNAME/StyleAI.git
+git branch -M main
 git push -u origin main
 ```
+
+Replace `YOUR_USERNAME` with your GitHub username.
 
 ## Notes
 
 - The SQLite database is created automatically when the app starts.
-- If you change the database schema, test the app locally before pushing.
-- If you plan to deploy the project later, use environment variables for all API keys.
+- Uploaded images are stored in the `static/` folder.
+- Keep real API keys private. Use `.env`, environment variables, or `local_secrets.py` for local development.
