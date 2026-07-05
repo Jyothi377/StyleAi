@@ -1,6 +1,7 @@
 # StyleAI
 
-StyleAI is a Flask-based fashion and style recommendation app. It includes user login, wardrobe management, image-based skin tone analysis, and outfit suggestions.
+
+StyleAI is a Flask-based fashion assistant that helps users get personalized outfit guidance from their own photos and wardrobe. It supports account login and registration, image-based skin tone analysis, AI-generated style recommendations, wardrobe item management, and saved history so users can revisit earlier analyses and suggestions.
 
 ## Tech Stack
 
