@@ -20,6 +20,7 @@ instance/
 *.sqlite
 *.sqlite3
 *.db
+static/item*_item1_item1_*.jpg
 
 # Test, coverage, and tooling caches
 .pytest_cache/
