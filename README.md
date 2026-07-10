@@ -7,6 +7,10 @@
 ![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![AI](https://img.shields.io/badge/AI-Fashion_Assistant-FF6F61?style=for-the-badge)
 
+## Problem Statement
+
+Choosing outfits that suit your skin tone or a specific occasion is often guesswork without expert styling advice. Most people don't have quick access to personalized fashion feedback. StyleAI solves this by analyzing a user's photo and wardrobe to give instant, AI-driven outfit recommendations.
+
 ## Overview
 
 **StyleAI** is a Flask-based fashion recommendation web app. It helps users analyze their photos, detect skin tone, manage wardrobe items, and receive AI-generated outfit suggestions for different occasions.
@@ -55,11 +59,9 @@ StyleAI/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/StyleAI.git
+git clone https://github.com/Jyothi377/StyleAi.git
 cd StyleAI
 ```
-
-Replace `YOUR_USERNAME` with your GitHub username.
 
 ### 2. Create a virtual environment
 
@@ -128,6 +130,45 @@ http://127.0.0.1:5000
 | `GROQ_API_KEY` | API key for AI-generated recommendations |
 | `GEMINI_API_KEY` | API key used for image/vision analysis, if configured |
 | `REPLICATE_API_TOKEN` | Optional token for Replicate-based features |
+
+## Screenshots
+
+*Register page*
+<img width="1913" height="909" alt="Screenshot 2026-06-21 194737" src="https://github.com/user-attachments/assets/e45288a1-4b46-426b-8c8c-c3fb1b2c9b9d" />
+
+*photo upload*
+<img width="1913" height="914" alt="Screenshot 2026-06-21 194813" src="https://github.com/user-attachments/assets/b49ded4b-cddb-43f1-836c-8b1303fe8b23" />
+
+*Result*
+<img width="1895" height="912" alt="Screenshot 2026-06-21 195111" src="https://github.com/user-attachments/assets/c61f2cd5-7fdd-4ab8-ab35-9631552614bd" />
+
+*History*
+<img width="1893" height="916" alt="Screenshot 2026-06-21 195621" src="https://github.com/user-attachments/assets/6f7c05da-668d-4d5e-8d07-c66f9be45ca1" />
+
+*Wardrobe upload*
+<img width="1890" height="914" alt="Screenshot 2026-06-21 195732" src="https://github.com/user-attachments/assets/dafb1c85-369d-4490-8772-1521cef17ece" />
+
+*Occasion-based outfit combo from wadrobe*
+<img width="1897" height="913" alt="Screenshot 2026-06-21 195848" src="https://github.com/user-attachments/assets/40db4211-7f95-41c5-8a71-e827a4431a50" />
+
+
+
+## Known Limitations
+
+- Not yet deployed live — currently runs locally only
+- Basic authentication only — no password reset, email verification, or social login
+- Skin tone detection accuracy can vary depending on lighting and photo quality
+
+## Future Improvements
+
+- Deploy the app live (Render/Vercel/Railway) for public access
+- Add password reset and email verification
+- Improve skin tone detection accuracy across varied lighting conditions
+- Add mobile-responsive UI
+
+## What I Learned
+
+Building StyleAI helped me practice integrating multiple AI APIs (Gemini, Groq) into a single Flask application, managing user authentication and sessions, structuring a database with Flask-SQLAlchemy, and handling real-world image processing challenges like inconsistent lighting affecting model accuracy.
 
 ## Important Notes
 
